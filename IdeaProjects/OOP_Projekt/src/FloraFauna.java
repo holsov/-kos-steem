@@ -11,7 +11,7 @@ public abstract class FloraFauna {
     public void setOn_taim(boolean on_taim) {
         this.on_taim = on_taim;
     }
-    public boolean isOn_taim() {
+    public boolean getOn_taim() {
         return on_taim;
     }
 
@@ -22,7 +22,9 @@ public abstract class FloraFauna {
     public double getVõitlusvõime() {
         return võitlusvõime;
     }
-
+    abstract int getKatsete_arv();
+    abstract void setKõhu_täisolek(double d);
+    abstract double getKõhu_täisolek();
     public void setVõitlusvõime(double võitlusvõime) {
         this.võitlusvõime = võitlusvõime;
     }

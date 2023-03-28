@@ -20,10 +20,22 @@ public  class Loom extends FloraFauna{
         this.katsete_arv = katsete_arv;
     }
 
+    public int getKatsete_arv() {
+        return katsete_arv;
+    }
+
+    @Override
+    void setKõhu_täisolek(double d) {
+        this.kõhu_täisolek = d;
+    }
+
+    @Override
+    double getKõhu_täisolek() {
+        return this.kõhu_täisolek;
+    }
+
     public boolean aktiivsus(){
         return this.kõhu_täisolek < 0.5 ? true : false;
-    }
-    public boolean toiduHankimine(FloraFauna olend){
     }
 
 }
