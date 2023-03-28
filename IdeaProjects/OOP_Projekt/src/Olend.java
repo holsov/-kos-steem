@@ -1,4 +1,4 @@
-public abstract class Loom{
+public abstract class Olend {
     private double kõhu_täisolek; //0-1
     private double täis_kõht;
     private double päevas_kuluv_toiteväärtus;
@@ -9,7 +9,7 @@ public abstract class Loom{
     private double tõenäosus_saab_söögi_kätte;
     private double võitlusvõime; //taime või looma võime vältida ohvriks jäämist 1 - võitlusvõime puudub, 0 - pole võimalik süüa.
     private int katsete_arv; // mittu korda saab loom päevas sõõki otsida
-    public Loom(double kõhu_täisolek, double täis_kõht, double päevas_kuluv_toiteväärtus, double tõenäosus_saab_sõõgi_kätte, double toiteväärtus, double võitlusvõime, boolean sõõbLoomi, boolean sõõbTaimi) {
+    public Olend(double kõhu_täisolek, double täis_kõht, double päevas_kuluv_toiteväärtus, double tõenäosus_saab_sõõgi_kätte, double toiteväärtus, double võitlusvõime, boolean sõõbLoomi, boolean sõõbTaimi) {
         this.toiteväärtus = toiteväärtus;
         this.võitlusvõime = võitlusvõime;
         this.kõhu_täisolek = täis_kõht*kõhu_täisolek;
@@ -21,15 +21,20 @@ public abstract class Loom{
 
 
     }
-    public Loom(){
+    public Olend(){
     }
 // aktiivsust enam pole lihtsalt kütivad alati ja kui kõht täis siis paljunevad
     public boolean kasPaljuneb(){
         return true;
     }
-
+    public boolean saabKätte(Olend saak){
+        return Math.random()*this.tõenäosus_saab_söögi_kätte > Math.random()*saak.getTõenäosus_saab_söögi_kätte();
+    }
     // SIIT EDASI ABSTRAKTSED KLASSID
-    abstract Loom laps();
+    abstract Olend laps();
+
+    abstract boolean saabJagu(Olend saak);
+
 
     // SIIT EDASI GETTERID JA SETTERID
     public double getKõhu_täisolek() {
