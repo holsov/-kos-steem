@@ -1,24 +1,17 @@
-public class Taim extends FloraFauna{
+public class Taim extends Loom{
+    private int paljunemiskiirus;
+    private int paljunemiseni_jäänud;
     public Taim(double toiteväärtus,double võitlusvõime) {
-        super(toiteväärtus,võitlusvõime);
+        this.setToiteväärtus(toiteväärtus);
+        this.setVõitlusvõime(võitlusvõime);
         this.setOn_taim(true);
+        this.setTõenäosus_saab_söögi_kätte(0);
     }
-
     @Override
-    int getKatsete_arv() {
-        return 0;
+    public boolean kasPaljuneb(){//võiks olla mingi counter
+        return true;
     }
-
-    @Override
-    void setKõhu_täisolek(double d) {
-
-    }
-
-    @Override
-    double getKõhu_täisolek() {
-        return 0;
-    }
-
-    void setKõhu_täisolek() {
+    public Taim laps(){
+        return new Taim(this.getToiteväärtus(),this.getVõitlusvõime());
     }
 }
