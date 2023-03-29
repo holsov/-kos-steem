@@ -8,10 +8,14 @@ public class Herbivoor extends Olend {
 
     @Override
     public boolean saabKätte(Olend saak) {
+        System.out.println("function call");
+        System.out.println(saak.getVõitlusvõime()*this.getTõenäosus_saab_söögi_kätte());
         Olend[] sööb = {new Taim(0.0, 0.0)};
         if (Math.random() < (saak.getVõitlusvõime() * this.getTõenäosus_saab_söögi_kätte())) {
+            System.out.println("sai kätte");
             for (int i = 0; i < sööb.length; i++) {
                 if (sööb[i].getClass().equals(saak.getClass())) {
+                    System.out.println("sõi ära");
                     return true;
                 }
             }

@@ -9,7 +9,7 @@ public class Taim extends Olend {
     }
     @Override
     public boolean kasPaljuneb(){//võiks olla mingi counter
-        return true;
+        return Math.random() < 0.2;
     }
     public Taim laps(){
         return new Taim(this.getToiteväärtus(),this.getVõitlusvõime());
