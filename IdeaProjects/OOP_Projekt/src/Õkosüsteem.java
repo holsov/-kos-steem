@@ -15,9 +15,14 @@ public class Õkosüsteem {
             õkosüsteem.add(new Karnivoor(0.7,1,0.3,0.5,1.3,0.5));
         }
 
+        for (int i = 0; i < õkosüsteem.size(); i++) {
+            System.out.println(õkosüsteem.get(i));
+            
+        }
+
+        int ökosysteemi_suurus = õkosüsteem.size();
         // Siit algab päeva tegevus
-        int i = 0;
-        while(i < õkosüsteem.size()){ //käib iga olendi läbi
+        for (int i = 0; i < ökosysteemi_suurus; i++) {
             int j = 0;
             Olend olend = õkosüsteem.get(i); //viide olendile listis
             if(!olend.getOn_taim()){ // ei ole taim
@@ -26,10 +31,8 @@ public class Õkosüsteem {
 
                     if(olend.saabKätte(õkosüsteem.get(saak))){ // olend tõenäosus_saab_söögi_kätte - saak tõenäosus_saab_söögi_kätte ja siis veel kotroll kas ta üldse tahab saaki süüa(sobiv toidugrupp ja mitte sama liik)
                         olend.setKõhu_täisolek(olend.getKõhu_täisolek() + õkosüsteem.get(saak).getToiteväärtus());
-
-                    if(!olend.saabJagu(õkosüsteem.get(saak))){ // kas looma saab saagist jagu (sõltub loomade kõhutäisolekust ja võitlusvõimest ilmselt lihtsalt korrutab läbi. Siis suuremad loomad on tugevamad ka)
+                    } else if(!olend.saabJagu(õkosüsteem.get(saak))){ // kas looma saab saagist jagu (sõltub loomade kõhutäisolekust ja võitlusvõimest ilmselt lihtsalt korrutab läbi. Siis suuremad loomad on tugevamad ka)
                         õkosüsteem.remove(i);
-                    }
                     }
                 }
 

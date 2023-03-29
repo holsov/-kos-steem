@@ -22,6 +22,19 @@ public class Taim extends Olend {
 
     @Override
     boolean saabJagu(Olend saak) {
-        return false;
+        double suuruse_suhe; // loomade suuruste erinevuse mõju
+        if (saak.getTäis_kõht() >= this.getTäis_kõht()) {
+            suuruse_suhe = this.getTäis_kõht() / saak.getTäis_kõht();
+            if (Math.random() < ((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe))) {
+                return true;
+            }
+            return false;
+        } else {
+            suuruse_suhe = saak.getTäis_kõht() / this.getTäis_kõht();
+            if (Math.random() < ((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe))) {
+                return true;
+            }
+            return false;
+        }
     }
 }

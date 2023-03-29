@@ -1,6 +1,6 @@
 public abstract class Olend {
     private double kõhu_täisolek; //0-1
-    private double täis_kõht;
+    private double täis_kõht; // absoluutväärtus
     private double päevas_kuluv_toiteväärtus;
     private boolean sõõb_taimi;
     private boolean sõõb_loomi;
@@ -25,7 +25,11 @@ public abstract class Olend {
     }
 // aktiivsust enam pole lihtsalt kütivad alati ja kui kõht täis siis paljunevad
     public boolean kasPaljuneb(){
-        return true;
+        if (kõhu_täisolek > 0.9) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public boolean saabKätte(Olend saak){
         return Math.random()*this.tõenäosus_saab_söögi_kätte > Math.random()*saak.getTõenäosus_saab_söögi_kätte();
@@ -115,5 +119,9 @@ public abstract class Olend {
 
     public void setTõenäosus_saab_söögi_kätte(double tõenäosus_saab_söögi_kätte) {
         this.tõenäosus_saab_söögi_kätte = tõenäosus_saab_söögi_kätte;
+    }
+
+    public String toString() {
+        return "Olend: " + String.valueOf(this.getClass()) + " kõhu täisolek: " + kõhu_täisolek + "Täiskõht: " + täis_kõht;
     }
 }
