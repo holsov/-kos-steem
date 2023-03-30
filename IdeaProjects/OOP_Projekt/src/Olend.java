@@ -1,12 +1,12 @@
 public abstract class Olend {
     private double kõhu_täisolek; //0-1
-    private double täis_kõht;
+    private double täis_kõht; // absoluutväärtus
     private double päevas_kuluv_toiteväärtus;
     private boolean sõõb_taimi;
     private boolean sõõb_loomi;
     private boolean on_taim;
     private double toiteväärtus;
-    private double tõenäosus_saab_söögi_kätte;
+    private double tõenäosus_saab_söögi_kätte; // 1- parem, 0 - halvem
     private double võitlusvõime; //taime või looma võime vältida ohvriks jäämist 1 - võitlusvõime puudub, 0 - pole võimalik süüa.
     private int katsete_arv; // mittu korda saab loom päevas sõõki otsida
     public Olend(double kõhu_täisolek, double täis_kõht, double päevas_kuluv_toiteväärtus, double tõenäosus_saab_sõõgi_kätte, double toiteväärtus, double võitlusvõime, boolean sõõbLoomi, boolean sõõbTaimi) {
@@ -14,7 +14,7 @@ public abstract class Olend {
         this.võitlusvõime = võitlusvõime;
         this.kõhu_täisolek = täis_kõht*kõhu_täisolek;
         this.tõenäosus_saab_söögi_kätte = tõenäosus_saab_sõõgi_kätte;
-        this.katsete_arv = (int)päevas_kuluv_toiteväärtus*30;
+        this.katsete_arv = (int)(päevas_kuluv_toiteväärtus*30.0);
         this.täis_kõht = täis_kõht;
         this.päevas_kuluv_toiteväärtus = päevas_kuluv_toiteväärtus;
         this.on_taim = false;
@@ -25,7 +25,11 @@ public abstract class Olend {
     }
 // aktiivsust enam pole lihtsalt kütivad alati ja kui kõht täis siis paljunevad
     public boolean kasPaljuneb(){
-        return true;
+        if (kõhu_täisolek > 0.9 * this.getTäis_kõht()) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public boolean saabKätte(Olend saak){
         return Math.random()*this.tõenäosus_saab_söögi_kätte > Math.random()*saak.getTõenäosus_saab_söögi_kätte();
@@ -115,5 +119,9 @@ public abstract class Olend {
 
     public void setTõenäosus_saab_söögi_kätte(double tõenäosus_saab_söögi_kätte) {
         this.tõenäosus_saab_söögi_kätte = tõenäosus_saab_söögi_kätte;
+    }
+
+    public String toString() {
+        return "Olend: " + String.valueOf(this.getClass()) + " kõhu täisolek: " + kõhu_täisolek + "Täiskõht: " + täis_kõht;
     }
 }
