@@ -14,12 +14,12 @@ public abstract class Olend {
         this.võitlusvõime = võitlusvõime;
         this.kõhu_täisolek = täis_kõht*kõhu_täisolek;
         this.tõenäosus_saab_söögi_kätte = tõenäosus_saab_sõõgi_kätte;
-        this.katsete_arv = (int)(päevas_kuluv_toiteväärtus*30.0);
+        this.katsete_arv = (int)(päevas_kuluv_toiteväärtus*50);
         this.täis_kõht = täis_kõht;
         this.päevas_kuluv_toiteväärtus = päevas_kuluv_toiteväärtus;
         this.on_taim = false;
-
-
+        this.sõõb_loomi = sõõbLoomi;
+        this.sõõb_taimi = sõõbTaimi;
     }
     public Olend(){
     }

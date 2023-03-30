@@ -25,6 +25,9 @@ public class Omnivoor  extends Olend{
 
     @Override
     boolean saabJagu(Olend saak) {
+        if (saak.getOn_taim()) {
+            return true;
+        }
         double suuruse_suhe; // loomade suuruste erinevuse mõju
         if (saak.getTäis_kõht() >= this.getTäis_kõht()) {
             suuruse_suhe = this.getTäis_kõht() / saak.getTäis_kõht();

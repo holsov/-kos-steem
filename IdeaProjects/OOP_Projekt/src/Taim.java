@@ -6,10 +6,11 @@ public class Taim extends Olend {
         this.setVõitlusvõime(võitlusvõime);
         this.setOn_taim(true);
         this.setTõenäosus_saab_söögi_kätte(0);
+        this.setKatsete_arv(0);
     }
     @Override
     public boolean kasPaljuneb(){//võiks olla mingi counter
-        return Math.random() < 0.2;
+        return Math.random() < 0.4;
     }
     public Taim laps(){
         return new Taim(this.getToiteväärtus(),this.getVõitlusvõime());

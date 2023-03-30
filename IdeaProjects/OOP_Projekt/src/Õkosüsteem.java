@@ -6,22 +6,23 @@ import java.util.Scanner;
 
 public class Õkosüsteem {
     public static void main(String[] args) throws IOException {
-        // for (int i = 0; i < 10; i++) {
-        //     õkosüsteem.add(new Taim(0.1,0.8));
-        // }
+        ArrayList<Olend> õkosüsteem = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            õkosüsteem.add(new Taim(2,1));
+        }
+        for (int i = 0; i < 10; i++) {
+            õkosüsteem.add(new Herbivoor(0.7,2.0,0.1,0.5,3,0.9));
+        }
+        for (int i = 0; i < 3; i++) {
+            õkosüsteem.add(new Karnivoor(0.7,3,0.3,0.5,4,0.9));
+        }
         // for (int i = 0; i < 5; i++) {
-        //     õkosüsteem.add(new Herbivoor(0.7,2.0,0.1,0.5,0.5,0.5));
-        // }
-        // for (int i = 0; i < 0; i++) {
-        //     õkosüsteem.add(new Karnivoor(0.7,1,0.3,0.5,1.3,0.5));
-        // }
-        // for (int i = 0; i < 5; i++) {
-        //     õkosüsteem.add(new Omnivoor(0.8, 2.0, 0.3, 0.6, 2.0, 0.1));
+        //     õkosüsteem.add(new Omnivoor(0.8, 2.0, 0.3, 0.6, 5, 0.9));
             
         // }
 
         // kasutaja sisend
-        ArrayList<Olend> õkosüsteem = loe_sisend();
+        // ArrayList<Olend> õkosüsteem = loe_sisend();
 
         System.out.println("alguseis: ");
         for (int i = 0; i < õkosüsteem.size(); i++) {
@@ -32,25 +33,26 @@ public class Õkosüsteem {
         // Siit algab päeva tegevus
 
         int i = 0;
-        for (int p = 0; p < 1; p++) {//päevade arv
+        for (int p = 0; p < 5; p++) {//päevade arv
             i = 0;
             int ökosysteemi_suurus = õkosüsteem.size();
-            while (i < õkosüsteem.size()) { //käib iga olendi läbi
+            while (i < Math.min(ökosysteemi_suurus, õkosüsteem.size())) { //käib iga olendi läbi
                 int j = 0;
                 Olend olend = õkosüsteem.get(i); //viide olendile listis
 
                 if (!olend.getOn_taim()) { // ei ole taim
-                    System.out.println("ei ole taim");
-                    for (j = 0; j < olend.getKatsete_arv(); j++) {
+                    for (j = 0; j < olend.getKatsete_arv() && olend.getKõhu_täisolek() < olend.getTäis_kõht(); j++) {
                         int saak = (int) (Math.random() * õkosüsteem.size()); // genereerib saagi indeksi
 
-                        if (olend.saabKätte(õkosüsteem.get(saak))) { // olend tõenäosus_saab_söögi_kätte - saak tõenäosus_saab_söögi_kätte ja siis veel kotroll kas ta üldse tahab saaki süüa(sobiv toidugrupp ja mitte sama liik)
+                        if (olend.saabKätte(õkosüsteem.get(saak)) && olend != õkosüsteem.get(saak)) { // olend tõenäosus_saab_söögi_kätte - saak tõenäosus_saab_söögi_kätte ja siis veel kotroll kas ta üldse tahab saaki süüa(sobiv toidugrupp ja mitte sama liik)
+                            if(saak<i){i--;} //muidu liiguvad kõik elemendid listis vasakule, aga indeks jääb samaks ja viitab valele elemendile
                             olend.setKõhu_täisolek(Math.min(olend.getTäis_kõht(), olend.getKõhu_täisolek() + õkosüsteem.get(saak).getToiteväärtus()));
+                            System.out.println("saak on: " + õkosüsteem.get(saak));
                             õkosüsteem.remove(saak);
-
                             
-                        } else if (!olend.saabJagu(õkosüsteem.get(saak))) { // kas looma saab saagist jagu (sõltub loomade kõhutäisolekust ja võitlusvõimest ilmselt lihtsalt korrutab läbi. Siis suuremad loomad on tugevamad ka)
+                        } else if (!olend.saabJagu(õkosüsteem.get(saak)) && ((õkosüsteem.get(saak).getOn_taim() && olend.isSõõb_taimi()) || ((!õkosüsteem.get(saak).getOn_taim()) && olend.isSõõb_loomi()))) { // kas looma saab saagist jagu (sõltub loomade kõhutäisolekust ja võitlusvõimest ilmselt lihtsalt korrutab läbi. Siis suuremad loomad on tugevamad ka)
                             õkosüsteem.remove(i);
+                            System.out.println("kuida siin");
                             break;
                         }
 
@@ -59,15 +61,16 @@ public class Õkosüsteem {
 
                 }
                 if (olend.kasPaljuneb()) {
-                    System.out.println(olend.getClass() + "kohu taisolek: " + olend.getKõhu_täisolek());
-                    olend.setKõhu_täisolek(olend.getKõhu_täisolek() / 3.0);
+                    olend.setKõhu_täisolek(olend.getKõhu_täisolek() / 2);
                     õkosüsteem.add(olend.laps());
                 }
                 olend.setKõhu_täisolek(olend.getKõhu_täisolek() - olend.getPäevas_kuluv_toiteväärtus());
                 // if (olend.getKõhu_täisolek() < 0) {
                 //     õkosüsteem.remove(i);
+                // } else {
+                    i++;// kui ei saanud päeva jooksul surma siis liigub järgmise olendi juurde
                 // }
-                i++;// kui ei saanud päeva jooksul surma siis liigub järgmise olendi juurde
+                
             }
         }
 
@@ -76,6 +79,22 @@ public class Õkosüsteem {
             System.out.println(õkosüsteem.get(j));
             
         }
+        int t = 0,o = 0,h = 0,k = 0;
+        for (int j = 0; j < õkosüsteem.size(); j++) {
+            if(õkosüsteem.get(j).getOn_taim()){
+                t++;
+            }else if(õkosüsteem.get(j).isSõõb_loomi() && õkosüsteem.get(j).isSõõb_taimi()){
+                o++;
+            }else if(õkosüsteem.get(j).isSõõb_taimi()){
+                h++;
+            }else if(õkosüsteem.get(j).isSõõb_loomi()){
+                k++;
+            }
+        }
+        System.out.println("Taimi on: "+t);
+        System.out.println("Herbivoore on: "+h);
+        System.out.println("Karnivoore on: "+k);
+        System.out.println("Omnivoore on: "+o);
 
     }
 
