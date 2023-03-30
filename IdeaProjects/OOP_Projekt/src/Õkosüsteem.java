@@ -1,28 +1,26 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Õkosüsteem {
     public static void main(String[] args) {
-        List<Olend> õkosüsteem = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            õkosüsteem.add(new Taim(0.1,0.8));
-        }
-        for (int i = 0; i < 5; i++) {
-            õkosüsteem.add(new Herbivoor(0.7,2.0,0.1,0.5,0.5,0.5));
-        }
-        for (int i = 0; i < 0; i++) {
-            õkosüsteem.add(new Karnivoor(0.7,1,0.3,0.5,1.3,0.5));
-        }
-        for (int i = 0; i < 5; i++) {
-            õkosüsteem.add(new Omnivoor(0.8, 2.0, 0.3, 0.6, 2.0, 0.1));
+        // for (int i = 0; i < 10; i++) {
+        //     õkosüsteem.add(new Taim(0.1,0.8));
+        // }
+        // for (int i = 0; i < 5; i++) {
+        //     õkosüsteem.add(new Herbivoor(0.7,2.0,0.1,0.5,0.5,0.5));
+        // }
+        // for (int i = 0; i < 0; i++) {
+        //     õkosüsteem.add(new Karnivoor(0.7,1,0.3,0.5,1.3,0.5));
+        // }
+        // for (int i = 0; i < 5; i++) {
+        //     õkosüsteem.add(new Omnivoor(0.8, 2.0, 0.3, 0.6, 2.0, 0.1));
             
-        }
+        // }
 
-        for (int i = 0; i < õkosüsteem.size(); i++) {
-            System.out.println(õkosüsteem.get(i));
-            
-        }
+        // kasutaja sisend
+        ArrayList<Olend> õkosüsteem = loe_sisend();
 
         System.out.println("alguseis: ");
         for (int i = 0; i < õkosüsteem.size(); i++) {
@@ -77,6 +75,77 @@ public class Õkosüsteem {
             System.out.println(õkosüsteem.get(j));
             
         }
+
+    }
+
+    public static ArrayList<Olend> loe_sisend() {
+        ArrayList<Olend> olendid = new ArrayList<>();
+        try (Scanner kasutaja_sisend = new Scanner(System.in)) {
+            System.out.println("Sisesta herbivooride arv, kõhutäisolek (0-1), maksimaalselt täis kõht, päevas kuluv toiteväärtus, tõenäosus et saab saagi kätte, tema toiteväärtus, võitlusvõime");
+            
+            int arv = kasutaja_sisend.nextInt();
+            double kõhutäisolek = kasutaja_sisend.nextDouble();
+            double max_kõht = kasutaja_sisend.nextDouble();
+            double päevas_kulub = kasutaja_sisend.nextDouble();
+            double tõenäosus_saab_söögi_kätte = kasutaja_sisend.nextDouble();
+            double toiteväärtus = kasutaja_sisend.nextDouble();
+            double võitlusvõime = kasutaja_sisend.nextDouble();
+
+            for (int i = 0; i < arv; i++) {
+                olendid.add(new Herbivoor(kõhutäisolek, max_kõht, päevas_kulub, tõenäosus_saab_söögi_kätte, toiteväärtus, võitlusvõime));
+            }
+        }
+
+        try (Scanner kasutaja_sisend = new Scanner(System.in)) {
+            System.out.println("Sisesta karnivooride arv, kõhutäisolek (0-1), maksimaalselt täis kõht, päevas kuluv toiteväärtus, tõenäosus et saab saagi kätte, tema toiteväärtus, võitlusvõime");
+            
+            int arv = kasutaja_sisend.nextInt();
+            double kõhutäisolek = kasutaja_sisend.nextDouble();
+            double max_kõht = kasutaja_sisend.nextDouble();
+            double päevas_kulub = kasutaja_sisend.nextDouble();
+            double tõenäosus_saab_söögi_kätte = kasutaja_sisend.nextDouble();
+            double toiteväärtus = kasutaja_sisend.nextDouble();
+            double võitlusvõime = kasutaja_sisend.nextDouble();
+
+            for (int i = 0; i < arv; i++) {
+                olendid.add(new Karnivoor(kõhutäisolek, max_kõht, päevas_kulub, tõenäosus_saab_söögi_kätte, toiteväärtus, võitlusvõime));
+            }
+        }
+
+        try (Scanner kasutaja_sisend = new Scanner(System.in)) {
+            System.out.println("Sisesta omnivooride arv, kõhutäisolek (0-1), maksimaalselt täis kõht, päevas kuluv toiteväärtus, tõenäosus et saab saagi kätte, tema toiteväärtus, võitlusvõime");
+            
+            int arv = kasutaja_sisend.nextInt();
+            double kõhutäisolek = kasutaja_sisend.nextDouble();
+            double max_kõht = kasutaja_sisend.nextDouble();
+            double päevas_kulub = kasutaja_sisend.nextDouble();
+            double tõenäosus_saab_söögi_kätte = kasutaja_sisend.nextDouble();
+            double toiteväärtus = kasutaja_sisend.nextDouble();
+            double võitlusvõime = kasutaja_sisend.nextDouble();
+
+            for (int i = 0; i < arv; i++) {
+                olendid.add(new Omnivoor(kõhutäisolek, max_kõht, päevas_kulub, tõenäosus_saab_söögi_kätte, toiteväärtus, võitlusvõime));
+            }
+        }
+
+        try (Scanner kasutaja_sisend = new Scanner(System.in)) {
+            System.out.println("Sisesta taimede arv, kõhutäisolek (0-1), maksimaalselt täis kõht, päevas kuluv toiteväärtus, tõenäosus et saab saagi kätte, tema toiteväärtus, võitlusvõime");
+            
+            int arv = kasutaja_sisend.nextInt();
+            double kõhutäisolek = kasutaja_sisend.nextDouble();
+            double max_kõht = kasutaja_sisend.nextDouble();
+            double päevas_kulub = kasutaja_sisend.nextDouble();
+            double tõenäosus_saab_söögi_kätte = kasutaja_sisend.nextDouble();
+            double toiteväärtus = kasutaja_sisend.nextDouble();
+            double võitlusvõime = kasutaja_sisend.nextDouble();
+
+            for (int i = 0; i < arv; i++) {
+                olendid.add(new Karnivoor(kõhutäisolek, max_kõht, päevas_kulub, tõenäosus_saab_söögi_kätte, toiteväärtus, võitlusvõime));
+            }
+        }
+
+
+
 
     }
 }
