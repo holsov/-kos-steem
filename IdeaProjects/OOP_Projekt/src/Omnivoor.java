@@ -10,7 +10,7 @@ public class Omnivoor  extends Olend{
 
     @Override
     public boolean saabKätte(Olend saak) {
-        Olend[] sööb = {new Taim(0.0, 0.0), 
+        Olend[] sööb = {new Taim(0.0, 0.0, 0.0), 
         new Herbivoor(0.0, 0.0, 0.0, 0.0, 0.0, 0.0), 
         new Omnivoor(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)};
         if (Math.random() < (saak.getVõitlusvõime() * this.getTõenäosus_saab_söögi_kätte())) {
@@ -36,8 +36,8 @@ public class Omnivoor  extends Olend{
             }
             return false;
         } else {
-            suuruse_suhe = saak.getTäis_kõht() / this.getTäis_kõht();
-            if (Math.random() < ((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe))) {
+            suuruse_suhe = 2 - (saak.getTäis_kõht() / this.getTäis_kõht());
+            if (Math.random() < Math.min(((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe)), 1.0)) {
                 return true;
             }
             return false;

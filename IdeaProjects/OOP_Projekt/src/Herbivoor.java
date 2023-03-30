@@ -3,13 +3,12 @@ public class Herbivoor extends Olend {
         super(kõhu_täisolek, täis_kõht, päevas_kuluv_toiteväärtus, tõenäosus_saab_sõõgi_kätte, toiteväärtus, võitlusvõime, false, true);
     }
     public Herbivoor laps(){
-        return new Herbivoor(this.getKõhu_täisolek(), this.getTäis_kõht(), this.getPäevas_kuluv_toiteväärtus(), this.getTõenäosus_saab_söögi_kätte(), this.getToiteväärtus(), this.getVõitlusvõime());
+        return new Herbivoor(this.getKõhu_täisolek() / this.getTäis_kõht(), this.getTäis_kõht(), this.getPäevas_kuluv_toiteväärtus(), this.getTõenäosus_saab_söögi_kätte(), this.getToiteväärtus(), this.getVõitlusvõime());
     }
 
     @Override
     public boolean saabKätte(Olend saak) {
-        System.out.println(saak.getVõitlusvõime()*this.getTõenäosus_saab_söögi_kätte());
-        Olend[] sööb = {new Taim(0.0, 0.0)};
+        Olend[] sööb = {new Taim(0.0, 0.0, 0.0)};
         if (Math.random() < (saak.getVõitlusvõime() * this.getTõenäosus_saab_söögi_kätte())) {
             for (int i = 0; i < sööb.length; i++) {
                 if (sööb[i].getClass().equals(saak.getClass())) {
@@ -33,8 +32,8 @@ public class Herbivoor extends Olend {
             }
             return false;
         } else {
-            suuruse_suhe = saak.getTäis_kõht() / this.getTäis_kõht();
-            if (Math.random() < ((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe))) {
+            suuruse_suhe = 2 - (saak.getTäis_kõht() / this.getTäis_kõht());
+            if (Math.random() < Math.min(((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe)), 1.0)) {
                 return true;
             }
             return false;

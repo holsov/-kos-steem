@@ -3,7 +3,7 @@ public class Karnivoor  extends Olend{
         super(kõhu_täisolek, täis_kõht, päevas_kuluv_toiteväärtus, tõenäosus_saab_sõõgi_kätte, toiteväärtus, võitlusvõime, true, false);
     }
     public Karnivoor laps(){
-        return new Karnivoor(this.getKõhu_täisolek(), this.getTäis_kõht(), this.getPäevas_kuluv_toiteväärtus(), this.getTõenäosus_saab_söögi_kätte(), this.getToiteväärtus(), this.getVõitlusvõime());
+        return new Karnivoor(this.getKõhu_täisolek() / this.getTäis_kõht(), this.getTäis_kõht(), this.getPäevas_kuluv_toiteväärtus(), this.getTõenäosus_saab_söögi_kätte(), this.getToiteväärtus(), this.getVõitlusvõime());
     }
 
     @Override
@@ -30,14 +30,12 @@ public class Karnivoor  extends Olend{
             }
             return false;
         } else {
-            suuruse_suhe = saak.getTäis_kõht() / this.getTäis_kõht();
-            if (Math.random() < ((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe))) {
+            suuruse_suhe = 2 - (saak.getTäis_kõht() / this.getTäis_kõht());
+            if (Math.random() < Math.min(((1 - saak.getTõenäosus_saab_söögi_kätte()) * (1 - this.getVõitlusvõime()) * (1 - suuruse_suhe)), 1.0)) {
                 return true;
             }
             return false;
         }
     }
 
-    public Karnivoor() {
-    }
 }
